@@ -9,7 +9,6 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.util.EntityUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.select.Elements;
 
 /**
  * @author eli
@@ -44,7 +43,7 @@ public class CrawlTask implements Runnable {
     private Host parseDocument(String body) {
         Document doc = Jsoup.parse(body);
         String[] split = url.split("/");
-        String ipv4 = doc.select("table > tbody > tr:nth-child(2) > td > ul > li").html();
-        return new Host(split[split.length-1], ipv4);
+        String ipv4 = doc.select("body > div > main > section:nth-child(11) > table > tbody > tr:nth-child(6) > td > ul > li").html();
+        return new Host(split[split.length-1], ipv4.split("\\n")[0]);
     }
 }
